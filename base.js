@@ -1,22 +1,23 @@
-let warehouse = {
-sosna_47x30 : {id: "SOSNA_47x30", value: 0},
-sosna_25x25 : {id: "SOSNA_25x25", value: 0},
-sosna_50x23 : {id: "SOSNA_50x23", value: 0},
-sosna_50x47 : {id: "SOSNA_50x47", value: 0},
-sosna_47x35 : {id: "SOSNA_47x35", value: 0},
-sosna_35x20 : {id: "SOSNA_35x20", value: 0},
-sosna_23x20 : {id: "SOSNA_23x20", value: 0},
-sosna_25x23 : {id: "SOSNA_25x23", value: 0},
-plyta_WIOROWA : {id: "PLYTA_WIOROWA", value: 0},
-pl_WIOROWA_BIALA : {id: "PL_WIOROWA_BIALA", value: 0},
-pl_PILSN_BIALA : {id: "PL_PILSN_BIALA", value: 0},
-hdf_3 : {id: "HDF_3", value: 0},
-pl_MDF_BIALA : {id: "PL_MDF_BIALA", value: 0},
-pl_PILSN_BIALA_3 : {id: "PL_PILSN_BIALA_3", value: 0},
-pl_PILSN_3 : {id: "PL_PILSN_3", value: 0},
-pl_MDF_6 : {id: "PL_MDF_6", value: 0},
-sklejka_6 : {id: "SKLEJKA_6", value: 0},
-sklejka_18 : {id: "SKLEJKA_18", value: 0},
+const warehouse = {
+    uniSosna:{id: "[SOSNA]", value: 0, units: "m3"},
+sosna_47x30 : {id: "SOSNA_47x30", value: 0, units: "m3"},
+sosna_25x25 : {id: "SOSNA_25x25", value: 0, units: "m3"},
+sosna_50x23 : {id: "SOSNA_50x23", value: 0, units: "m3"},
+sosna_50x47 : {id: "SOSNA_50x47", value: 0, units: "m3"},
+sosna_47x35 : {id: "SOSNA_47x35", value: 0, units: "m3"},
+sosna_35x20 : {id: "SOSNA_35x20", value: 0, units: "m3"},
+sosna_23x20 : {id: "SOSNA_23x20", value: 0, units: "m3"},
+sosna_25x23 : {id: "SOSNA_25x23", value: 0, units: "m3"},
+plyta_WIOROWA : {id: "PLYTA_WIOROWA", value: 0, units: "m2"},
+pl_WIOROWA_BIALA : {id: "PL_WIOROWA_BIALA", value: 0, units: "m2"},
+pl_PILSN_BIALA : {id: "PL_PILSN_BIALA", value: 0, units: "m2"},
+hdf_3 : {id: "HDF_3", value: 0, units: "m2"},
+pl_MDF_BIALA : {id: "PL_MDF_BIALA", value: 0, units: "m2"},
+pl_PILSN_BIALA_3 : {id: "PL_PILSN_BIALA_3", value: 0, units: "m2"},
+pl_PILSN_3 : {id: "PL_PILSN_3", value: 0, units: "m2"},
+pl_MDF_6 : {id: "PL_MDF_6", value: 0, units: "m2"},
+sklejka_6 : {id: "SKLEJKA_6", value: 0, units: "m2"},
+sklejka_18 : {id: "SKLEJKA_18", value: 0, units: "m2"},
 }
 
 const state = {
@@ -52,10 +53,10 @@ const state = {
                             {
                                 id: warehouse.sosna_50x23.id,
                                 size: [
-                                    [1230, 50, 23, 1],
+                                    [1230, 50, 23, 1, "tasm"],
                                     [930, 50, 23, 1],
                                     [760, 50, 23, 1],
-                                    [170, 50, 23, 1],
+                                    [170, 50, 23, 1, "tasm"],
                                     [127, 50, 23, 1],
                                     [85, 50, 23, 1],]
                             },
@@ -66,11 +67,12 @@ const state = {
                         material: [
                             {
                                 id: warehouse.plyta_WIOROWA.id,
-                                size: [[2070, 930, 15, 1, "9sztP"],
-                                    [900, 275, 15, 1],
-                                    [775, 275, 15, 1, "cnc"],
-                                    [930, 225, 15, 1],
-                                    [687, 150, 15, 1, "12sztP"],
+                                size: [
+                                    // [2070, 930, 15, 1, "9sztP"],
+                                    // [900, 275, 15, 1],
+                                    // [775, 275, 15, 1, "cnc"],
+                                    // [930, 225, 15, 1],
+                                    // [687, 150, 15, 1, "12sztP"],
                                     [760, 50, 15, 1],],
                             },
                             {
@@ -108,10 +110,10 @@ const state = {
                             {
                                 id:warehouse.sosna_50x23.id,
                                 size: [
-                                    [1230, 50, 23, 4],
-                                    [930, 50, 23, 3],
-
-                                    [127, 50, 23, 1],
+                                    // [1230, 50, 23, 4],
+                                    // [930, 50, 23, 3],
+                                    //
+                                    // [127, 50, 23, 1],
                                     [85, 50, 23, 4],]
                             },
                         ]
@@ -122,9 +124,9 @@ const state = {
                             {
                                 id:warehouse.plyta_WIOROWA.id,
                                 size: [[930, 275, 15, 1],
-                                    [900, 275, 15, 1],
-                                    [775, 275, 15, 2],
-                                    [687, 150, 15, 2],
+                                    // [900, 275, 15, 1],
+                                    // [775, 275, 15, 2],
+                                    // [687, 150, 15, 2],
                                     [760, 50, 15, 4],],
                             },
                             {
@@ -437,6 +439,7 @@ const state = {
 
         ],
     },
+
 }
 
 

@@ -37,7 +37,7 @@
         justify-content: left;
         text-shadow: 1px 1px 3px rgb(68, 71, 68);
         box-shadow: 1px 1px 1px rgb(46, 37, 37);
-        padding: 10px;
+        padding: 0;
         border: 1px solid #082b08;
         border-radius: 5px;
     }
@@ -72,20 +72,34 @@
         grid-row: span 3;
         grid-template-columns:80px 80px;
         justify-content: left;
-        height: 965px;
+
+        min-height: 150px;
+        max-height: 965px;
     }
 
     .container .item-3 {
+        display: inline-flex;
+       flex-flow: column;
+        flex-wrap: wrap;
+        /*-template-columns:repeat(4,1fr);*/
         grid-row: span 3;
         grid-column: span 3;
         padding: 0;
-
+        min-height: 150px;
+        min-width: 250px;
+        max-height:970px ;
+        width: auto;
+            /*border:none;*/
+    box-shadow: none;
 
     }
 
     .container .item-4 {
-        display: grid;
-        justify-content: initial;
+        display: inline-flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+        min-height: 300px;
+        max-height:970px ;
         /*min-width: 500px;*/
         /*min-height: 500px;*/
         /*padding: 0;*/
@@ -93,23 +107,42 @@
         /*align-items: inherit;*/
         /*grid-row-end: inherit;*/
     }
-
-    .modelBox a {
+.item-4 a {
+    line-height: 18px;
+    justify-content: left;
+    padding: 0;
+    border: 1px solid #082b08;
+}
+    .modelBox .a.modelBox {
         line-height: 18px;
         justify-content: left;
         padding: 0;
+        border: 1px solid #082b08;
     }
 
     .modelBox {
         display: grid;
-        grid-template-columns:1fr 1fr 1fr 1fr;
+        grid-template-columns:repeat(4,1fr);
         grid-template-rows:unset;
         box-sizing: border-box;
         align-content: space-around;
         border: none;
 
     }
+    .block {
+        display: grid;
+        border: 1px solid #082b08;
+        justify-content: left;
+        box-shadow: none;
+        margin-top: 0;
+        padding: 5px;
+        width:max-content;
+    }
+    .sameSizeBlock {
+        display: grid;
+        box-sizing: border-box;
 
+    }
     .item .size {
         display: inline-block;
         border: none;
@@ -123,19 +156,10 @@
 
     }
 
-    .item.operator {
+    .item .operator {
         border: none;
         box-shadow: none;
         padding: 0;
-    }
-
-    .block {
-        border: 1px solid #082b08;
-        justify-content: left;
-        box-shadow: none;
-        margin-top: 20px;
-        padding: 0;
-    width:max-content;
     }
 
     .button {
@@ -198,23 +222,23 @@
     }
 
 
-    @media (max-width: 1200px) {
-        .container {
-            width: 970px;
-        }
-    }
+    /*@media (max-width: 1200px) {*/
+    /*    .container {*/
+    /*        width: 970px;*/
+    /*    }*/
+    /*}*/
 
-    @media (max-width: 992px) {
-        .container {
-            width: 750px;
-        }
-    }
+    /*@media (max-width: 992px) {*/
+    /*    .container {*/
+    /*        width: 750px;*/
+    /*    }*/
+    /*}*/
 
-    @media (max-width: 750px) {
-        .container {
-            max-width: none;
-        }
-    }
+    /*@media (max-width: 750px) {*/
+    /*    .container {*/
+    /*        max-width: none;*/
+    /*    }*/
+    /*}*/
 }
 
 @media print {
@@ -251,8 +275,37 @@
     }
 
     .container .item-3 {
-        width: 210mm;
-
+        display: inline-flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+        padding: 5mm;
+        height:427mm ;
+        width: 297mm;
+        border: none;
+    }
+    .container .item-4 {
+        display: inline-flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+        border: none;
+        height:427mm ;
+        width: 297mm;
+        /*min-width: 500px;*/
+        /*min-height: 500px;*/
+        /*padding: 0;*/
+        /*font-size: small;*/
+        /*align-items: inherit;*/
+        /*grid-row-end: inherit;*/
+    }
+    .item-4 a {
+        line-height: 18px;
+        justify-content: left;
+        padding: 0;
+        width:max-content;
+        border: 1px solid #082b08;
+    }
+    .container .volume {
+        display: none;
     }
     .modelBox {
         display: grid;

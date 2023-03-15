@@ -1,30 +1,28 @@
-let pineVolume = 0
+let matVolume = 0
 let partId = '0'
 let productType
-let sizeArr = [];
+let sameSizeArr = []
 const getEl = function (id) {
     return document.getElementById(id)
 }
-
 const getId = {
     blockId: getEl('productList'),
     modelsList: getEl("modelsList"),
     volume: getEl("volume"),
     multiSizeHtml: getEl("multiSizeHtml")
-
 }
-    // 1
-let getModelList = (productType, buttonId, count, sizeArr) => {
+// 1
+let getModelList = (productType, buttonId, count) => {
+
     let partName = ""
     let partList = ""
-
     for (let i in productType.partOfModel) {
 
         if (productType.partOfModel[i].id === buttonId) {
             partName = productType.partOfModel[i].id
             //blockOperatorCreate
             partList = productType.partOfModel[i].partItem.map(item => {
-                return getMaterialSize(item,count, sizeArr)
+                    return getMaterialSize(item, count)
                 }
             ).join(' ')
         }
@@ -35,93 +33,129 @@ ${partList} </div> `
 
 
     addHtmlToListsArr(productType, listsHtml, html)
-    getId.volume.innerText ="PL_WIOROWA = " + pineVolume.toFixed(3) + " m3"
-    genHtml(listsHtml, getId.blockId,)
+
+    getId.volume.innerHTML = materialsArrCreate()
+    genHtml(listsHtml, getId.blockId, count)
 
 }
-//2 мапинг материала, внутри гет материал массив и гет штмлразмеры
-let getMaterialSize = (item,count, sizeArr) => {
+//2 map material array
+let getMaterialSize = (item, count) => {
+
     let nameOfOperator = item.nameOfOperator
     let materialSize = item.material.map(material => {
-        getMultiMaterialArr(material,count, sizeArr)
-        return getSizeHtml(material)
+        let multiMaterial = getCopy(material)
+        getSameMaterialArr(multiMaterial, count)
+        return getSizeHtml(material, count)
 
     }).join(' ')
     return `<div class="item block"><b>${nameOfOperator}</b> ${materialSize}</div>`
 }
 //3 maping multiArr
-let getMultiMaterialArr = (material, count,sizeArr) => {
-    let materialNotExist = true;
-    sizeArr.map(elOfArr => {
-        if (elOfArr.id === material.id) {
+
+let getSameMaterialArr = (multiMaterial, count) => {
+
+    let materialNotExist = true
+    sameSizeArr.map(sameItem => {
+
+        if (sameItem.id === multiMaterial.id) {
             let diffSize = true;
-            material.size.map(el => {
-                elOfArr.size.forEach(thisSize => {
-                    if (thisSize[0] === el[0] && thisSize[1] === el[1]) {
-                        el[3] = el[3] * count
-                        thisSize[3] += el[3]
-                        materialNotExist = false;
-                        return diffSize = false;
+            multiMaterial.size.map(el => {
+                sameItem.size.forEach(size => {
+                    if (size[0] === el[0] && size[1] === el[1]) {
+                        size[3] += el[3] * count
+                        size[5] = "*"
+                        materialNotExist = false
+                        return diffSize = false
                     }
                 })
 
                 if (diffSize) {
-                    el[3]= el[3]*count
-                    elOfArr.size.push(el)
-                    materialNotExist = false;}
+                    sameItem.size.push(el)
+                    materialNotExist = false;
+                }
             })
         }
     })
-    if (materialNotExist ) {
-        material.size.forEach(el => {
-            el[3]= el[3]*count
+    if (materialNotExist) {
+        multiMaterial.size.forEach(el => {
+            el[3] = el[3] * count
         })
-
-
-        sizeArr.push(material)
-        return sizeArr}
-
-
-}
-//4 штмл для списк первого
-let getSizeHtml = (material) => {
-
-    let materialKind = material.id
-    let sizeHtml = material.size.map(el => {
-        return elementCreate(el[0], el[1], el[2], el[3], el[4],)
-    }).join(' ')
-
-    return `<a class="item operator"> <b>${materialKind}</b> ${sizeHtml}</a>`
-
-}
-//5
-let elementCreate = (leng, wid, depth, amount, commit,) => {
-    partId++
-    if (commit!== "undefined*" ) {
-        return `
-<li class="size">
-<lable for="${partId}">
- ${leng}x${wid}x${depth}     ${amount}    SZT    ${commit}
-</lable>
-</li>`
-    } else {
-        let li = `
-<li class="size">
-<lable for="${partId}">
-${leng}x${wid}x${depth}     ${amount} SZT 
-</lable>
-
-</li>
-`;
-        pineVolume += leng / 1000 * wid / 1000 * depth / 1000 * amount;
-        return li
+        sameSizeArr.push(multiMaterial)
+        // sameSizeArr.sort((a,b)=>b-a)
+        return sameSizeArr
     }
 
 }
-// return to 3
-/*
-<input type="checkbox" name="sizeBox" id="${partId}" value ="${amount * inputNum.value}+' szt '+${leng}+'x'+${wid}+'x'+${depth}"/>
-<input type="checkbox" name="sizeBox" id="${partId}" value ="${amount * inputNum.value}+' szt '+${leng}+'x'+${wid}+'x'+${depth}"/>*/
+//4 штмл для списк первого
+let getSizeHtml = function (material, count) {
+    let clasOfItem = "sameSizeBlock";
+    count ? clasOfItem = "item operator" : clasOfItem
+    let materialKind = material.id
+    for (let i in warehouse) {
+        if (materialKind === warehouse[i].id) {
+            matVolume = warehouse[i]
+        }
+    }
+
+
+    let sizeHtml = material.size.map(el => {
+
+        return elementCreate(el, count)
+    }).join(' ')
+
+    return `<a class=${clasOfItem}> <b>${materialKind}</b> ${sizeHtml}</a>`
+
+}
+//5
+let elementCreate = (el, count) => {
+    partId++
+
+    if (count) {
+        if (el[4]) {
+           if (matVolume.id.slice(0,5) ==='SOSNA') {warehouse.uniSosna.value += el[0] / 1000 * el[1] / 1000 * el[2] / 1000 * el[3] * count
+           } else { matVolume.value += el[0] / 1000 * el[1] / 1000* el[3] * count }
+            return ` 
+<li class="size">
+<lable for="${partId}">
+ ${el[0]}x${el[1]}x${el[2]}     ${el[3] * count}   SZT    ${el[4]}
+</lable
+<input type="checkbox" name="sizeBox" id="${partId}"/>
+
+</li>`
+        } else {
+            if (matVolume.id.slice(0,5) ==='SOSNA') {warehouse.uniSosna.value += el[0] / 1000 * el[1] / 1000 * el[2] / 1000 * el[3] * count
+            } else { matVolume.value += el[0] / 1000 * el[1] / 1000* el[3] * count }
+            return `
+<li class="size">
+<lable for="${partId}">
+${el[0]}x${el[1]}x${el[2]}     ${el[3] * count} SZT 
+</lable>
+<input type="checkbox" name="sizeBox" id="${partId}" />
+</li>
+`
+        }
+    } else {
+        if (el[4]) {
+            return `
+<li class="size">
+<lable for="${partId}">
+ ${el[0]}x${el[1]}x${el[2]}  ${el[3]} SZT  ${el[4]}
+</lable>
+<input type="checkbox" name="sizeBox" id="${partId}" />
+</li>`
+        } else {
+            return `
+<li class="size">
+<lable for="${partId}">
+${el[0]}x${el[1]}x${el[2]}     ${el[3]} SZT 
+</lable>
+<input type="checkbox" name="sizeBox" id="${partId}" />
+</li>
+`
+
+        }
+    }
+}
 //6
 let addHtmlToListsArr = (productType, listsHtml, html) => {
 
@@ -132,22 +166,51 @@ let addHtmlToListsArr = (productType, listsHtml, html) => {
     }
 
 }
+
 //7 the last operation add html
 function genHtml(listsHtml, blockId,) {
     let htmlList = ' '
     for (let i in listsHtml) {
-        let id = listsHtml[i].name
         let newHtml = `
-             <div class="modelBox" id="${id}">          
+                       
          ${listsHtml[i].objHtml}  
-    </div>
+    
             `
         htmlList += newHtml
         blockId.innerHTML = htmlList
     }
 
-    getId.multiSizeHtml.innerHTML = sizeArr.map(material => {
+    getId.multiSizeHtml.innerHTML = sameSizeArr.map(material => {
         return getSizeHtml(material)
 
     }).join(' ')
 }
+
+// copy
+let getCopy = (arr) => {
+    let newArr = {}
+    newArr.id = arr.id
+    newArr.size = []
+    arr.size.map(el => {
+        newArr.size.push(el.slice(0))
+    })
+
+    return newArr
+}
+let materialsArrCreate = () => {
+    let matArray = ' '
+    for (let i in warehouse) {
+        if (warehouse[i].id[0]==='S') {
+            warehouse.uniSosna.value+=warehouse[i].value
+            warehouse[i].value= 0}
+    if (warehouse[i].value) {
+            matArray +=`
+<div class="size">
+     ${warehouse[i].id} = ${warehouse[i].value.toFixed(3)} ${warehouse[i].units}, cena = ${warehouse[i].value.toFixed(3)*250} zl
+ </div>`
+        }
+    }
+
+    return matArray
+}
+// return to 3

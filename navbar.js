@@ -1,23 +1,24 @@
 for (let i in state) {
-    debugger
     getId.modelsList.innerHTML += `
    <a><input type="radio" class="radio" name="model" value="${state[i].id}" id="${state[i].id}" > ${state[i].id.toUpperCase()}</a>    
-    `
-}
+    `}
+
 let btns = document.querySelectorAll('.radio')
 
-let listsHtml = [];
+let listsHtml = []
 
 btns.forEach(btn => {
     btn.addEventListener('click', () => {
+
         productType = state[btn.value]
         listsHtml.push({name:productType.id})
         buttonCreate(productType)
     })
 })
+
 let buttonCreate = (productType) => {
     let buttonsId = getEl("buttonsArray")
-    let buttonsHTML = ' ';
+    let buttonsHTML = ' '
     for (let i in productType.partOfModel) {
         buttonsHTML +=`
         <input type="text" id="${productType.partOfModel[i].id}" title="set" class="input"/>
@@ -32,8 +33,9 @@ let buttonCreate = (productType) => {
     }
 }
 let clickedEl
+//generate list of sizes
 let onClickCountRun = (e) => {
-    debugger
+
      let buttonId
     let newClick = e.currentTarget
     if (clickedEl===newClick) {alert("IS alrady go")
@@ -43,6 +45,6 @@ let onClickCountRun = (e) => {
     let inputNum = getEl(buttonId)
         let count = inputNum.value
 
-    getModelList(productType, buttonId, count, sizeArr)}
+    getModelList(productType, buttonId, count, sameSizeArr)}
 }
 
