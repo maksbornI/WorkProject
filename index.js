@@ -9,7 +9,8 @@ const getId = {
     blockId: getEl('productList'),
     modelsList: getEl("modelsList"),
     volume: getEl("volume"),
-    multiSizeHtml: getEl("multiSizeHtml")
+    multiSizeHtml: getEl("multiSizeHtml"),
+    curUser: getEl("curUser")
 }
 
 //0
@@ -17,6 +18,7 @@ let onClickCountRun = (e) => {
 
     let buttonId
     let newClick = e.currentTarget
+
     if (clickedEl===newClick) {return newClick
     } else {
         clickedEl=newClick

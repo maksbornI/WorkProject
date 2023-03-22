@@ -17,13 +17,17 @@ btns.forEach(btn => {
     })
 })
 
+let selectedUser = document.querySelector('#selectUser').value
+console.log(selectedUser)
+
+
 let buttonCreate = (productType) => {
     let buttonsId = getEl("buttonsArray")
     let buttonsHTML = ' '
     for (let i in productType.partOfModel) {
         buttonsHTML +=`
         <input type="text" id="${productType.partOfModel[i].id}" title="set" class="input"/>
-        <button id="${productType.partOfModel[i].id}" class="button insert">${productType.partOfModel[i].id}</button>
+        <button class="button insert">${productType.partOfModel[i].id}</button>
         `
     }
     buttonsId.innerHTML = buttonsHTML
