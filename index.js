@@ -11,6 +11,22 @@ const getId = {
     volume: getEl("volume"),
     multiSizeHtml: getEl("multiSizeHtml")
 }
+
+//0
+let onClickCountRun = (e) => {
+
+    let buttonId
+    let newClick = e.currentTarget
+    if (clickedEl===newClick) {return newClick
+    } else {
+        clickedEl=newClick
+        buttonId = clickedEl.innerHTML
+        let inputNum = getEl(buttonId)
+        let count = inputNum.value
+        count ===""? count=0:count
+
+        getModelList(productType, buttonId, count, sameSizeArr)}
+}
 // 1
 let getModelList = (productType, buttonId, count) => {
 
@@ -34,18 +50,19 @@ ${partList} </div> `
 
     addHtmlToListsArr(productType, listsHtml, html)
 
-    getId.volume.innerHTML = materialsArrCreate()
+    getId.volume.innerHTML = materialsArrRender(warehouse)
     genHtml(listsHtml, getId.blockId, count)
 
 }
-//2 map material array
+//2 maping material array
 let getMaterialSize = (item, count) => {
 
     let nameOfOperator = item.nameOfOperator
-    let materialSize = item.material.map(material => {
+    let copyArr = getCopy(item)
+    let materialSize = copyArr.material.map(material => {
         let multiMaterial = getCopy(material)
         getSameMaterialArr(multiMaterial, count)
-        return getSizeHtml(material, count)
+        return htmlRender(material, count)
 
     }).join(' ')
     return `<div class="item block"><b>${nameOfOperator}</b> ${materialSize}</div>`
@@ -70,9 +87,11 @@ let getSameMaterialArr = (multiMaterial, count) => {
                 })
 
                 if (diffSize) {
+                    el[3] = el[3] * count
                     sameItem.size.push(el)
                     materialNotExist = false;
                 }
+                sameItem.size.sort((a, b) => b - a)
             })
         }
     })
@@ -80,6 +99,8 @@ let getSameMaterialArr = (multiMaterial, count) => {
         multiMaterial.size.forEach(el => {
             el[3] = el[3] * count
         })
+        multiMaterial.size.sort((a, b) => b - a)
+
         sameSizeArr.push(multiMaterial)
         // sameSizeArr.sort((a,b)=>b-a)
         return sameSizeArr
@@ -87,16 +108,15 @@ let getSameMaterialArr = (multiMaterial, count) => {
 
 }
 //4 штмл для списк первого
-let getSizeHtml = function (material, count) {
+let htmlRender = function (material, count) {
     let clasOfItem = "sameSizeBlock";
     count ? clasOfItem = "item operator" : clasOfItem
     let materialKind = material.id
     for (let i in warehouse) {
-        if (materialKind === warehouse[i].id) {
+        if (materialKind === warehouse [i].id) {
             matVolume = warehouse[i]
         }
     }
-
 
     let sizeHtml = material.size.map(el => {
 
@@ -111,49 +131,24 @@ let elementCreate = (el, count) => {
     partId++
 
     if (count) {
-        if (el[4]) {
-           if (matVolume.id.slice(0,5) ==='SOSNA') {warehouse.uniSosna.value += el[0] / 1000 * el[1] / 1000 * el[2] / 1000 * el[3] * count
-           } else { matVolume.value += el[0] / 1000 * el[1] / 1000* el[3] * count }
-            return ` 
+        matVolume.units === "m2" ? matVolume.value += el[0] / 1000 * el[1] / 1000 * el[3] * count : matVolume.value += el[0] / 1000 * el[1] / 1000 * el[2] / 1000 * el[3] * count
+        return `
 <li class="size">
 <lable for="${partId}">
- ${el[0]}x${el[1]}x${el[2]}     ${el[3] * count}   SZT    ${el[4]}
-</lable
-<input type="checkbox" name="sizeBox" id="${partId}"/>
-
-</li>`
-        } else {
-            if (matVolume.id.slice(0,5) ==='SOSNA') {warehouse.uniSosna.value += el[0] / 1000 * el[1] / 1000 * el[2] / 1000 * el[3] * count
-            } else { matVolume.value += el[0] / 1000 * el[1] / 1000* el[3] * count }
-            return `
-<li class="size">
-<lable for="${partId}">
-${el[0]}x${el[1]}x${el[2]}     ${el[3] * count} SZT 
+ ${el[0]}x${el[1]}x${el[2]}  ${el[3] * count} SZT  ${el[4] ? el[4] = el[4] : el[4] = ""} ${el[5] ? el[5] = el[5] : el[5] = ""}
 </lable>
 <input type="checkbox" name="sizeBox" id="${partId}" />
-</li>
-`
-        }
+</li>`
+
     } else {
-        if (el[4]) {
-            return `
+        return `
 <li class="size">
 <lable for="${partId}">
- ${el[0]}x${el[1]}x${el[2]}  ${el[3]} SZT  ${el[4]}
+ ${el[0]}x${el[1]}x${el[2]}  ${el[3]} SZT  ${el[4] ? el[4] : el[4] = ''} ${el[5] ? el[5] = el[5] : el[5] = ''}
 </lable>
 <input type="checkbox" name="sizeBox" id="${partId}" />
 </li>`
-        } else {
-            return `
-<li class="size">
-<lable for="${partId}">
-${el[0]}x${el[1]}x${el[2]}     ${el[3]} SZT 
-</lable>
-<input type="checkbox" name="sizeBox" id="${partId}" />
-</li>
-`
 
-        }
     }
 }
 //6
@@ -181,34 +176,40 @@ function genHtml(listsHtml, blockId,) {
     }
 
     getId.multiSizeHtml.innerHTML = sameSizeArr.map(material => {
-        return getSizeHtml(material)
+        return htmlRender(material)
 
     }).join(' ')
 }
 
 // copy
 let getCopy = (arr) => {
-    let newArr = {}
+    return JSON.parse(JSON.stringify(arr))
+    /*   let newArr = {}
     newArr.id = arr.id
     newArr.size = []
     arr.size.map(el => {
         newArr.size.push(el.slice(0))
-    })
+    })*/
 
-    return newArr
+    /*   return newArr*/
 }
-let materialsArrCreate = () => {
+let materialsArrRender = (warehouseArr) => {
     let matArray = ' '
-    for (let i in warehouse) {
-        if (warehouse[i].id[0]==='S') {
-            warehouse.uniSosna.value+=warehouse[i].value
-            warehouse[i].value= 0}
-    if (warehouse[i].value) {
-            matArray +=`
+    for (let i in warehouseArr) {
+        if (warehouseArr[i].id.slice(0, 5) === 'SOSNA') {
+            warehouseArr.uniSosna.value += warehouse[i].value
+            warehouseArr[i].value = 0
+        }
+    }
+    for (let i in warehouseArr) {
+
+        if (warehouseArr[i].value) {
+            matArray += `
 <div class="size">
-     ${warehouse[i].id} = ${warehouse[i].value.toFixed(3)} ${warehouse[i].units}, cena = ${warehouse[i].value.toFixed(3)*250} zl
+     ${warehouseArr[i].id} = ${warehouseArr[i].value.toFixed(3)} ${warehouseArr[i].units}
  </div>`
         }
+
     }
 
     return matArray

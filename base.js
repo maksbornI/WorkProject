@@ -1,26 +1,258 @@
 const warehouse = {
-    uniSosna:{id: "[SOSNA]", value: 0, units: "m3"},
-sosna_47x30 : {id: "SOSNA_47x30", value: 0, units: "m3"},
-sosna_25x25 : {id: "SOSNA_25x25", value: 0, units: "m3"},
-sosna_50x23 : {id: "SOSNA_50x23", value: 0, units: "m3"},
-sosna_50x47 : {id: "SOSNA_50x47", value: 0, units: "m3"},
-sosna_47x35 : {id: "SOSNA_47x35", value: 0, units: "m3"},
-sosna_35x20 : {id: "SOSNA_35x20", value: 0, units: "m3"},
-sosna_23x20 : {id: "SOSNA_23x20", value: 0, units: "m3"},
-sosna_25x23 : {id: "SOSNA_25x23", value: 0, units: "m3"},
-plyta_WIOROWA : {id: "PLYTA_WIOROWA", value: 0, units: "m2"},
-pl_WIOROWA_BIALA : {id: "PL_WIOROWA_BIALA", value: 0, units: "m2"},
-pl_PILSN_BIALA : {id: "PL_PILSN_BIALA", value: 0, units: "m2"},
-hdf_3 : {id: "HDF_3", value: 0, units: "m2"},
-pl_MDF_BIALA : {id: "PL_MDF_BIALA", value: 0, units: "m2"},
-pl_PILSN_BIALA_3 : {id: "PL_PILSN_BIALA_3", value: 0, units: "m2"},
-pl_PILSN_3 : {id: "PL_PILSN_3", value: 0, units: "m2"},
-pl_MDF_6 : {id: "PL_MDF_6", value: 0, units: "m2"},
-sklejka_6 : {id: "SKLEJKA_6", value: 0, units: "m2"},
-sklejka_18 : {id: "SKLEJKA_18", value: 0, units: "m2"},
+    uniSosna: {id: "[SOSNA]", value: 0, units: "m3"},
+    sosna_47x30: {id: "SOSNA_47x30", value: 0, units: "m3"},
+    sosna_30x30: {id: "SOSNA_30x30", value: 0, units: "m3"},
+    sosna_25x25: {id: "SOSNA_25x25", value: 0, units: "m3"},
+    sosna_50x23: {id: "SOSNA_50x23", value: 0, units: "m3"},
+    sosna_75x25: {id: "SOSNA_75x25", value: 0, units: "m3"},
+    sosna_50x47: {id: "SOSNA_50x47", value: 0, units: "m3"},
+    sosna_47x35: {id: "SOSNA_47x35", value: 0, units: "m3"},
+    sosna_35x20: {id: "SOSNA_35x20", value: 0, units: "m3"},
+    sosna_23x20: {id: "SOSNA_23x20", value: 0, units: "m3"},
+    sosna_25x23: {id: "SOSNA_25x23", value: 0, units: "m3"},
+    plyta_WIOROWA: {id: "PLYTA_WIOROWA", value: 0, units: "m2"},
+    textura: {id: "TEXTURA", value: 0, units: "m2"},
+    pl_WIOROWA_BIALA: {id: "PL_WIOROWA_BIALA", value: 0, units: "m2"},
+    pl_PILSN_BIALA: {id: "PL_PILSN_BIALA", value: 0, units: "m2"},
+    hdf_3: {id: "HDF_3", value: 0, units: "m2"},
+    pl_MDF_BIALA: {id: "PL_MDF_BIALA", value: 0, units: "m2"},
+    pl_PILSN_BIALA_3: {id: "PL_PILSN_BIALA_3", value: 0, units: "m2"},
+    pl_PILSN_3: {id: "PL_PILSN_3", value: 0, units: "m2"},
+    pl_MDF_6: {id: "PL_MDF_6", value: 0, units: "m2"},
+    sklejka_6: {id: "SKLEJKA_6", value: 0, units: "m2"},
+    sklejka_15: {id: "SKLEJKA_15", value: 0, units: "m2"},
+    sklejka_18: {id: "SKLEJKA_18", value: 0, units: "m2"},
+}
+let operators = {
+    matrix: 'matrix',
+    SCM: "SCM",
+    pila: "PILA",
+
+
 }
 
 const state = {
+    /* Unit: {
+         id: "",
+         partOfModel: [
+             {
+                 id: "",
+                 partItem: [
+
+                     {
+                         nameOfOperator: "",
+                         material: [
+                             {
+                                 id: warehouse.sosna_47x30.id,
+                                 size: [
+                                 ]
+                             },
+                             {
+                                 id: warehouse.sosna_47x30.id,
+                                 size: [
+
+
+                                 ]
+                             }
+                         ],
+                     },
+                     {
+                         nameOfOperator: "MATRIX",
+                         material: [
+                             {
+                                 id: warehouse.sosna_50x23.id,
+                                 size: [
+ ]
+                             },
+                         ],
+                     },
+                     {
+                         nameOfOperator: "",
+                         material: [
+                             {
+                                 id: warehouse.plyta_WIOROWA.id,
+                                 size: [
+                                     ],
+                             },
+                             {
+                                 id: warehouse.pl_PILSN_BIALA.id,
+                                 size: [
+                                     ]
+                             },
+                         ],
+                     },
+                 ]
+             },
+
+         ],
+     }*/
+    inga: {
+        id: "inga",
+        partOfModel: [
+            {
+                id: "OPAR_160",
+                partItem: [
+                    {
+                        nameOfOperator: "SCM",
+                        material: [
+                            {
+                                id: warehouse.plyta_WIOROWA.id,
+                                size: [
+                                    [1760, 350, 15, 1],
+                                    [1000, 223, 15, 2],
+                                    [975, 198, 15, 3],
+                                    [400, 50, 15, 4],
+                                    [200, 80, 15, 2],
+                                ]
+                            },
+                            {
+                                id: warehouse.pl_PILSN_3.id,
+                                size: [
+                                    [1760, 1010, 3, 1],
+                                    [1760, 650, 3, 1],
+                                ]
+                            },
+                            {
+                                id: warehouse.textura.id,
+                                size: [
+                                    [1760, 150, 1, 1],
+                                    [50, 50, 1, 4],
+                                ]
+                            },
+                            {
+                                id: warehouse.sklejka_6.id,
+                                size: [
+                                    [200, 70, 6, 2],
+                                ]
+                            },
+                        ],
+                    },
+                    {
+                        nameOfOperator: "MATRIX",
+                        material: [
+                            {
+                                id: warehouse.sosna_50x23.id,
+                                size: [
+                                    [175, 50, 23, 5],
+                                    [50, 50, 23, 10],
+                                ]
+                            },
+                            {
+                                id: warehouse.sosna_25x25.id,
+                                size: [
+                                    [1760, 25, 25, 1],
+                                    [1730, 25, 25, 3],
+                                ]
+                            },
+                            {
+                                id: warehouse.sosna_75x25.id,
+                                size: [
+                                    [1730, 75, 25, 1],
+                                ]
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                id: "RAMA_160",
+                partItem: [
+                    {
+                        nameOfOperator: "SCM",
+                        material: [
+                            {
+                                id: warehouse.plyta_WIOROWA.id,
+                                size: [
+                                    [2000, 240, 15, 1],
+                                    [780, 240, 15, 1],
+                                    [685, 30, 15, 1],
+                                ]
+                            },
+                            {
+                                id: warehouse.pl_MDF_6.id,
+                                size: [
+                                    [1985, 780, 6, 1],
+
+                                ]
+                            },
+                            {
+                                id: warehouse.hdf_3.id,
+                                size: [
+                                    [1985, 780, 3, 1],
+                                ]
+                            },
+                            {
+                                id: warehouse.sklejka_15.id,
+                                size: [
+                                    [200, 140, 15, 2],
+                                ]
+                            },
+                        ],
+                    },
+                    {
+                        nameOfOperator: "MATRIX",
+                        material: [
+                            {
+                                id: warehouse.sosna_47x30.id,
+                                size: [
+                                    [920,47,30,4],
+                                    [780,47,30,3],
+                                    [685,47,30,1],
+                                ]
+                            },
+
+                            {
+                                id: warehouse.sosna_30x30.id,
+                                size: [
+                                    [350,30,30,1],
+                                ]
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                id: "SKRZYNIA",
+                partItem: [
+                    {
+                        nameOfOperator: "SCM",
+                        material: [
+                            {
+                                id: warehouse. pl_WIOROWA_BIALA.id ,
+                                size: [
+                                    [1940,209,16,2,"0.5cnc"],
+                                    [700,209,16,2,"cnc"],
+
+                                ]
+                            },
+                            {
+                                id: warehouse.pl_PILSN_BIALA_3.id,
+                                size: [
+                                    [1940, 730, 3, 1],
+
+                                ]
+                            },
+                        ],
+                    },
+                    {
+                        nameOfOperator: "MATRIX",
+                        material: [
+                            {
+                                id: warehouse.sosna_50x23.id,
+                                size: [
+                                    [160,50,23,6],
+                                    [100,50,23,4],
+                                    [700,50,23,2],
+                                ]
+                            },
+
+                        ],
+                    },
+                ],
+            },
+
+        ],
+    },
     nihad: {
         id: "nihad",
         partOfModel: [
@@ -92,7 +324,7 @@ const state = {
                         nameOfOperator: "PILA",
                         material: [
                             {
-                                id:warehouse.sosna_50x23.id,
+                                id: warehouse.sosna_50x23.id,
                                 size: [
                                     [125, 47, 30, 2],
                                     [930, 25, 25, 2],
@@ -108,7 +340,7 @@ const state = {
                         nameOfOperator: "MATRIX",
                         material: [
                             {
-                                id:warehouse.sosna_50x23.id,
+                                id: warehouse.sosna_50x23.id,
                                 size: [
                                     // [1230, 50, 23, 4],
                                     // [930, 50, 23, 3],
@@ -122,7 +354,7 @@ const state = {
                         nameOfOperator: "SCM",
                         material: [
                             {
-                                id:warehouse.plyta_WIOROWA.id,
+                                id: warehouse.plyta_WIOROWA.id,
                                 size: [[930, 275, 15, 1],
                                     // [900, 275, 15, 1],
                                     // [775, 275, 15, 2],
@@ -130,7 +362,7 @@ const state = {
                                     [760, 50, 15, 4],],
                             },
                             {
-                                id:warehouse.pl_PILSN_BIALA.id ,
+                                id: warehouse.pl_PILSN_BIALA.id,
                                 size: [
                                     [1258, 83, 3, 2],]
                             },
@@ -186,7 +418,7 @@ const state = {
                         nameOfOperator: "SCM",
                         material: [
                             {
-                                id:warehouse.plyta_WIOROWA.id ,
+                                id: warehouse.plyta_WIOROWA.id,
                                 size: [
                                     [1045, 640, 15, 2, "cnc"],
                                     [875, 640, 15, 1],
@@ -194,7 +426,7 @@ const state = {
                                 ],
                             },
                             {
-                                id: warehouse.hdf_3.id ,
+                                id: warehouse.hdf_3.id,
                                 size: [
                                     [1530, 640, 3, 1],
                                     [1345, 300, 3, 1],
@@ -240,7 +472,7 @@ const state = {
                         nameOfOperator: "SCM",
                         material: [
                             {
-                                id:warehouse.plyta_WIOROWA.id,
+                                id: warehouse.plyta_WIOROWA.id,
                                 size: [
                                     [1045, 640, 15, 1, "cnc"],
                                     [700, 280, 15, 2],
@@ -439,6 +671,7 @@ const state = {
 
         ],
     },
+
 
 }
 

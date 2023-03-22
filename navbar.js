@@ -1,3 +1,4 @@
+//generate buttons om models
 for (let i in state) {
     getId.modelsList.innerHTML += `
    <a><input type="radio" class="radio" name="model" value="${state[i].id}" id="${state[i].id}" > ${state[i].id.toUpperCase()}</a>    
@@ -6,7 +7,7 @@ for (let i in state) {
 let btns = document.querySelectorAll('.radio')
 
 let listsHtml = []
-
+//listener of radioButtons
 btns.forEach(btn => {
     btn.addEventListener('click', () => {
 
@@ -33,18 +34,12 @@ let buttonCreate = (productType) => {
     }
 }
 let clickedEl
-//generate list of sizes
-let onClickCountRun = (e) => {
 
-     let buttonId
-    let newClick = e.currentTarget
-    if (clickedEl===newClick) {alert("IS alrady go")
-    } else {
-        clickedEl=newClick
-    buttonId = clickedEl.innerHTML
-    let inputNum = getEl(buttonId)
-        let count = inputNum.value
 
-    getModelList(productType, buttonId, count, sameSizeArr)}
-}
+
+
+
+
+
+
 
