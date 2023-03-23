@@ -22,6 +22,7 @@ console.log(selectedUser)
 
 
 let buttonCreate = (productType) => {
+    console.trace()
     let buttonsId = getEl("buttonsArray")
     let buttonsHTML = ' '
     for (let i in productType.partOfModel) {

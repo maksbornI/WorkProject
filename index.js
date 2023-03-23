@@ -17,7 +17,7 @@ const getId = {
 
 //0
 let onClickCountRun = (e) => {
-
+    console.trace()
     let buttonId
     let newClick = e.currentTarget
 
@@ -33,7 +33,7 @@ let onClickCountRun = (e) => {
 }
 // 1
 let getModelList = (productType, buttonId, count) => {
-
+    console.trace()
     let partName = ""
     let partList = ""
     for (let i in productType.partOfModel) {
@@ -61,7 +61,7 @@ ${partList} </div> `
 }
 //2 maping material array
 let getMaterialSize = (item, count) => {
-
+    console.trace()
     let nameOfOperator = item.nameOfOperator
     let copyArr = getCopy(item)
     let materialSize = copyArr.material.map(material => {
@@ -75,7 +75,7 @@ let getMaterialSize = (item, count) => {
 //3 maping multiArr
 // шука однаковi розмiри * кiльiсть
 let getSameMaterialArr = (multiMaterial, count) => {
-
+    console.trace()
     let materialNotExist = true
     sameSizeArr.map(sameItem => {
 
@@ -114,6 +114,7 @@ let getSameMaterialArr = (multiMaterial, count) => {
 }
 //4 html для першого списку
 let htmlRender = function (material, count) {
+    console.trace()
     let clasOfItem = "sameSizeBlock";
     count ? clasOfItem = "item operator" : clasOfItem
     let materialKind = material.id
@@ -133,6 +134,7 @@ let htmlRender = function (material, count) {
 }
 //5
 let elementCreate = (el, count) => {
+    console.trace()
     partId++
 
     if (count) {
@@ -158,7 +160,7 @@ let elementCreate = (el, count) => {
 }
 //6
 let addHtmlToListsArr = (productType, listsHtml, html) => {
-
+    console.trace()
     for (let i in listsHtml) {
         let newHtml = html;
         if (listsHtml[i].name === productType.id)
@@ -188,6 +190,7 @@ function genHtml(listsHtml, blockId,) {
 
 // copy
 let getCopy = (arr) => {
+    console.trace()
     return JSON.parse(JSON.stringify(arr))
     /*   let newArr = {}
     newArr.id = arr.id
@@ -199,6 +202,7 @@ let getCopy = (arr) => {
     /*   return newArr*/
 }
 let materialsArrRender = (warehouseArr) => {
+    console.trace()
     let matArray = ' '
     for (let i in warehouseArr) {
         if (warehouseArr[i].id.slice(0, 5) === 'SOSNA') {
