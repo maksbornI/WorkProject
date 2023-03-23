@@ -1,4 +1,4 @@
-//generate buttons om models
+//generate buttons of modelsArray
 for (let i in state) {
     getId.modelsList.innerHTML += `
    <a><input type="radio" class="radio" name="model" value="${state[i].id}" id="${state[i].id}" > ${state[i].id.toUpperCase()}</a>    

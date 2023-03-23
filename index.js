@@ -1,3 +1,5 @@
+// з глобальними змiнними щось обовьязково зроблю!
+
 let matVolume = 0
 let partId = '0'
 let productType
@@ -35,10 +37,11 @@ let getModelList = (productType, buttonId, count) => {
     let partName = ""
     let partList = ""
     for (let i in productType.partOfModel) {
-
+        //не впевнений що це коректне присвоювання!
         if (productType.partOfModel[i].id === buttonId) {
+
             partName = productType.partOfModel[i].id
-            //blockOperatorCreate
+
             partList = productType.partOfModel[i].partItem.map(item => {
                     return getMaterialSize(item, count)
                 }
@@ -70,7 +73,7 @@ let getMaterialSize = (item, count) => {
     return `<div class="item block"><b>${nameOfOperator}</b> ${materialSize}</div>`
 }
 //3 maping multiArr
-
+// шука однаковi розмiри * кiльiсть
 let getSameMaterialArr = (multiMaterial, count) => {
 
     let materialNotExist = true
@@ -109,7 +112,7 @@ let getSameMaterialArr = (multiMaterial, count) => {
     }
 
 }
-//4 штмл для списк первого
+//4 html для першого списку
 let htmlRender = function (material, count) {
     let clasOfItem = "sameSizeBlock";
     count ? clasOfItem = "item operator" : clasOfItem
